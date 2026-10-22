@@ -44,6 +44,10 @@ docker compose up -d app
 
 Import refuses to overwrite a nonempty dashboard. It verifies every original field and JSON payload before committing. Historical SQL migrations are not reused: PostgreSQL has its own migration history in `db/migrations/`.
 
+## Published image and Synology
+
+GitHub Actions builds `linux/amd64` and `linux/arm64` images and publishes `ghcr.io/wjdecorte/picker:latest` after checks pass on `main`. Commit and version tags support pinned deployments. See [Synology setup, registry login, and data transfer](deploy/synology/README.md). The workflow uses GitHub’s built-in package token; no new repository secret is required.
+
 ## Local development
 
 ```sh

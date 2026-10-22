@@ -29,9 +29,9 @@
 - [ ] Add request validation/rate limiting and structured server error reporting.
 - [ ] Choose hosting, configure TLS/reverse proxy and restrict PostgreSQL access.
 - [ ] Use a least-privilege runtime database role separate from the migration owner.
-- [ ] Add CI for unit tests, real PostgreSQL integration tests, type checking and Docker builds.
+- [x] Add CI for unit tests, real PostgreSQL integration tests, type checking and multi-platform Docker publishing.
 - [ ] Add dependency/container scanning and review unused starter components/dependencies.
-- [ ] Create a Git remote and push only after choosing a host/repository visibility.
+- [x] Connect the GitHub repository and push the application source.
 - [ ] Publish only after explicit approval.
 
 ## Analytics and data quality
