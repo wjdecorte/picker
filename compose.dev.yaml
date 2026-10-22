@@ -1,0 +1,5 @@
+# Optional database port for running Next.js directly on this Mac.
+services:
+  db:
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5433}:5432"

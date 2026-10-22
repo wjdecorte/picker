@@ -1,0 +1,35 @@
+name: picker
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: picker
+      POSTGRES_USER: picker
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U picker -d picker"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  app:
+    build: .
+    restart: unless-stopped
+    init: true
+    environment:
+      DATABASE_URL: postgresql://picker:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/picker
+      APP_ORIGIN: ${APP_ORIGIN:-http://localhost:3000}
+      RESULTS_SERVICE_KEY: ${RESULTS_SERVICE_KEY:-}
+    ports:
+      - "127.0.0.1:${APP_PORT:-3000}:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+volumes:
+  postgres_data:
