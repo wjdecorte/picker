@@ -108,7 +108,7 @@ All Picks, Recommended Plays, Best Bets, and Actual Bets are distinct population
 
 **Refresh results** calls ESPN from the server. Pending games are not graded from placeholder 0–0 scores. Verified finals are not repeatedly rewritten; conflicting scores require review. Page-open polling runs every 90 seconds. The status bar displays the latest successful check in ET. There is no background worker yet; closed-browser updates are on the to-do list. Odds, injury, weather, and closing-line feeds remain manual.
 
-This setup is a **single-user local app**. The Compose port binds to `127.0.0.1`; no service was published. Writes enforce the configured origin and local request address. The optional `RESULTS_SERVICE_KEY` permits authenticated non-browser service calls; legacy Sites identity headers are no longer trusted. There is no remote browser sign-in yet. Add authentication and read authorization before deploying to a shared/public host; see `TODO.md`. Keep service/database secrets server-side, outside Git.
+This setup is a **single-user trusted-home-network app**. Compose publishes NAS port 8756 and enables `ALLOW_LAN_ACCESS=true`; set `APP_ORIGIN` to the exact NAS URL, such as `http://YOUR_NAS_IP:8756`. Only private-network/local hostnames are accepted for browser writes, with an exact origin and Host match. PostgreSQL is not published. There is no sign-in screen: devices that can reach the app are trusted. Keep the port on your home network. Remote/public deployments still need authentication and read authorization; see `TODO.md`. `RESULTS_SERVICE_KEY` remains server-only and is never required in browser code. Legacy Sites identity and forwarded-host headers are not trusted.
 
 ## Back up and recover
 

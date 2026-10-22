@@ -17,4 +17,4 @@ NFL_Picks_Dashboard.xlsx contains 27 selections, no kickoff times or closing lin
 
 ## Standalone application (October 22, 2026)
 
-Project: `/Users/jason/Projects/picker`. Runs as standalone Next.js/Node.js with PostgreSQL and Docker Compose. Original records were imported and checked field by field; SQLite backups are retained privately. Sites/Cloudflare identity and storage dependencies are removed. Current deployment is single-user, bound to localhost, with same-origin writes and optional server service-token access. Page-open score polling remains; background scheduling and remote sign-in are pending in TODO.md.
+Project: `/Users/jason/Projects/picker`. Runs as standalone Next.js/Node.js with PostgreSQL and Docker Compose. Original records were imported and checked field by field; SQLite backups are retained privately. Sites/Cloudflare identity and storage dependencies are removed. Current deployment is single-user on a trusted home network, with opt-in private-LAN access, exact origin/Host checks and optional server service-token access. Page-open score polling remains; background scheduling and remote sign-in are pending in TODO.md.

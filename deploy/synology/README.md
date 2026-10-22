@@ -36,15 +36,25 @@ docker compose ps
 
 The app runs as an unprivileged user. PostgreSQL uses the persistent `picker_postgres_data` volume and has no published port. Database migrations run before the app starts. A new database initializes from the historical seed on the first dashboard access; your Mac’s live PostgreSQL data is not part of the image. See the data-transfer step below if you want the exact current records.
 
-## 3. Open the dashboard securely
+## 3. Open the dashboard on your home network
 
-Picker currently supports local single-user access. Keep the Compose binding on NAS loopback; there is no remote browser authentication yet. Use an SSH tunnel from your Mac:
+Set the following in the NAS `.env`, replacing `YOUR_NAS_IP` with the NAS private IP or local hostname:
 
-```sh
-ssh -N -L 8756:127.0.0.1:8756 YOUR_NAS_USER@YOUR_NAS_HOST
+```dotenv
+APP_PORT=8756
+APP_ORIGIN=http://YOUR_NAS_IP:8756
 ```
 
-Then open **http://localhost:8756** on the Mac. This matches `APP_ORIGIN` in the sample. If NAS port 8756 is occupied, change `APP_PORT` and the tunnel’s destination port together. If Mac port 8756 changes, update `APP_ORIGIN` as well. Do not put a service token in browser code or open an unauthenticated LAN/public app port. Authentication and remote deployment are tracked in `TODO.md`.
+Then apply the latest image and configuration:
+
+```sh
+docker compose pull app
+docker compose up -d app
+```
+
+Open **http://YOUR_NAS_IP:8756** from a device on your home network. The app is published on NAS port 8756 and forwards to container port 3000; PostgreSQL stays internal. No SSH tunnel is needed. Allow TCP 8756 from your home subnet in the Synology firewall if it is enabled.
+
+Compose explicitly sets `ALLOW_LAN_ACCESS=true`. Browser writes still require the configured origin and matching Host header. Set `APP_ORIGIN` to the exact address you use, including port; requests from other origins/hosts are rejected. Private IPv4 addresses, IPv6 ULA addresses, `.local`/`.lan`/`.home.arpa` names and single-label NAS names are supported. This is trusted-home-network access without a sign-in screen: anyone who can reach this port can read the dashboard and use the permitted local interface. Keep it on the home network; authentication remains a prerequisite for Internet exposure. Do not forward the port on your router.
 
 ## 4. Transfer current PostgreSQL data (optional, before first app use)
 
