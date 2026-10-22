@@ -1,0 +1,5 @@
+# Optional source build instead of the published image.
+services:
+  app:
+    build: .
+    image: picker-app:local

@@ -20,10 +20,10 @@ services:
     init: true
     environment:
       DATABASE_URL: postgresql://picker:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/picker
-      APP_ORIGIN: ${APP_ORIGIN:-http://localhost:18080}
+      APP_ORIGIN: ${APP_ORIGIN:-http://localhost:8756}
       RESULTS_SERVICE_KEY: ${RESULTS_SERVICE_KEY:-}
     ports:
-      - "127.0.0.1:${APP_PORT:-3000}:3000"
+      - "127.0.0.1:${APP_PORT:-8756}:3000"
     depends_on:
       db:
         condition: service_healthy

@@ -4,15 +4,16 @@ A personal NFL against-the-spread dashboard for weekly picks, immutable initial/
 
 ## Start with Docker
 
-Requires Docker Desktop with Compose. Node.js 24 is needed only for local development and the environment setup helper.
+Requires Docker with Compose (Docker Desktop on Mac or Container Manager on Synology). Node.js 24 is needed only for local development and the environment setup helper.
 
 ```sh
 cd /Users/jason/Projects/picker
 node scripts/setup-env.mjs
-docker compose up -d --build
+docker compose pull
+docker compose up -d
 ```
 
-Open **http://localhost:3000**. Containers restart automatically after Docker restarts. The app listens only on this Mac. PostgreSQL has a persistent named volume and is not exposed to the network. Migrations run before the app starts; Compose waits for the database health check.
+Open **http://localhost:8756** (or your configured access URL). Containers restart automatically after Docker restarts. Compose pulls `ghcr.io/wjdecorte/picker:latest`; the NAS host port defaults to 8756 and the container still listens on 3000. PostgreSQL has a persistent named volume and is not exposed to the network. Migrations run before the app starts; Compose waits for the database health check.
 
 The local `.env` has already been generated with random credentials. `setup-env.mjs` never overwrites it. `.env.example` documents each setting. If `APP_PORT` changes, update `APP_ORIGIN` to the matching browser URL. Passwords used in the connection URL must be URL-safe; the setup helper generates hex values.
 
@@ -25,6 +26,14 @@ docker compose up -d             # start again
 
 The database lives in the `picker_postgres_data` Docker volume. `docker compose down` preserves it. `docker compose down -v` deletes it; do not use that command when retaining picks.
 
+To build from source instead of pulling the published image:
+
+```sh
+docker compose -f compose.yaml -f compose.build.yaml up -d --build
+```
+
+Existing `.env` files override defaults: set `APP_PORT=8756` and update `APP_ORIGIN` to the exact browser URL when moving to the NAS. Do not change an existing database password.
+
 ## Data migrated from the previous dashboard
 
 The existing SQLite database was backed up, then imported into PostgreSQL and checked field by field: **41 games, 5 cards, 41 saved pick versions, 39 graded version results, and 0 actual wagers** at migration time. Week 5 records, Week 6 initial and Sunday snapshots, actual-bet separation, notes, scores, and metadata are retained. Migration did not retrieve new scores or invent Week 7 picks.
@@ -35,8 +44,7 @@ A fresh empty database initializes from the bundled historical workbook/schedule
 
 ```sh
 node scripts/setup-env.mjs
-docker compose up -d --build db
-docker compose build app
+docker compose up -d db
 docker compose run --rm -v "$PWD/backups:/import:ro" app \
   node scripts/import-legacy.mjs /import/legacy-export.json
 docker compose up -d app
@@ -57,7 +65,7 @@ npm run setup
 docker compose -f compose.yaml -f compose.dev.yaml up -d db
 npm run db:migrate
 docker compose stop app           # free port 3000 if the container app is running
-npm run dev
+APP_ORIGIN=http://localhost:3000 npm run dev
 ```
 
 Open http://localhost:3000. `DATABASE_URL` in `.env` points to the optional host database port; Compose overrides it with the internal `db:5432` address for the app container. The development override is not required for normal Docker use.

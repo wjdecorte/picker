@@ -25,7 +25,7 @@ chmod 600 .env
 openssl rand -hex 24
 ```
 
-Set `POSTGRES_PASSWORD` in `.env` to that random value. Keep the password URL-safe (hex works). Do not change it later without also changing the PostgreSQL role password. Set `PICKER_IMAGE` to `latest`, a `sha-...` tag, or an immutable image digest from the registry. The repository’s root Compose file builds locally; **use this directory’s Compose file on Synology**.
+Set `POSTGRES_PASSWORD` in `.env` to that random value. Keep the password URL-safe (hex works). Do not change it later without also changing the PostgreSQL role password. Set `PICKER_IMAGE` to `latest`, a `sha-...` tag, or an immutable image digest from the registry. Both the root and this directory’s Compose files pull the published image. The NAS port defaults to **8756**; the container port remains 3000. Existing `.env` files override defaults, so update `APP_PORT=8756` and the matching `APP_ORIGIN` without changing the database password.
 
 ```sh
 # If transferring current Mac data, follow step 4 before starting the app.
@@ -41,10 +41,10 @@ The app runs as an unprivileged user. PostgreSQL uses the persistent `picker_pos
 Picker currently supports local single-user access. Keep the Compose binding on NAS loopback; there is no remote browser authentication yet. Use an SSH tunnel from your Mac:
 
 ```sh
-ssh -N -L 18080:127.0.0.1:3000 YOUR_NAS_USER@YOUR_NAS_HOST
+ssh -N -L 8756:127.0.0.1:8756 YOUR_NAS_USER@YOUR_NAS_HOST
 ```
 
-Then open **http://localhost:18080** on the Mac. This matches `APP_ORIGIN` in the sample. If NAS port 3000 is occupied, change `APP_PORT` and the tunnel’s destination port together. If Mac port 18080 changes, update `APP_ORIGIN` as well. Do not put a service token in browser code or open an unauthenticated LAN/public app port. Authentication and remote deployment are tracked in `TODO.md`.
+Then open **http://localhost:8756** on the Mac. This matches `APP_ORIGIN` in the sample. If NAS port 8756 is occupied, change `APP_PORT` and the tunnel’s destination port together. If Mac port 8756 changes, update `APP_ORIGIN` as well. Do not put a service token in browser code or open an unauthenticated LAN/public app port. Authentication and remote deployment are tracked in `TODO.md`.
 
 ## 4. Transfer current PostgreSQL data (optional, before first app use)
 
