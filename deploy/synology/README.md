@@ -1,6 +1,6 @@
 # Run Picker on Synology
 
-The GitHub workflow publishes **ghcr.io/wjdecorte/picker** after tests pass. `latest` follows `main`; `sha-<full-commit>` pins a specific build. Pushing `v1.2.3` additionally creates `1.2.3` and `1.2` tags. Release-tag builds do not replace `latest`. The image includes amd64 and arm64 variants; Docker chooses the matching one. Older 32-bit ARM NAS models are not supported by this image. The NAS must support Docker/Container Manager and Compose v2.
+The GitHub workflow publishes **ghcr.io/wjdecorte/picker** after tests pass. `latest` follows `main`; `sha-<full-commit>` pins a specific build. Pushing `v1.2.3` additionally creates `1.2.3` and `1.2` tags. Release-tag builds do not replace `latest`. Native Intel and ARM GitHub runners build the two variants in parallel; the workflow verifies both architectures before publishing the shared tags. The image includes amd64 and arm64 variants; Docker chooses the matching one. Older 32-bit ARM NAS models are not supported by this image. The NAS must support Docker/Container Manager and Compose v2.
 
 Workflow: [Build and publish Docker image](https://github.com/wjdecorte/picker/actions/workflows/image.yaml). Builds run on main pushes, version tags and manual dispatch. Pull requests run tests/build validation but cannot publish. Publishing uses GitHub’s built-in token, not a personal credential stored in the repository. `.env`, database files, private backups and Git metadata are excluded from image builds.
 
@@ -25,9 +25,10 @@ chmod 600 .env
 openssl rand -hex 24
 ```
 
-Set `POSTGRES_PASSWORD` in `.env` to that random value. Keep the password URL-safe (hex works). Do not change it later without also changing the PostgreSQL role password. Set `PICKER_IMAGE` to `latest`, a `sha-...` tag, or the immutable image digest shown in the workflow summary. The repository’s root Compose file builds locally; **use this directory’s Compose file on Synology**.
+Set `POSTGRES_PASSWORD` in `.env` to that random value. Keep the password URL-safe (hex works). Do not change it later without also changing the PostgreSQL role password. Set `PICKER_IMAGE` to `latest`, a `sha-...` tag, or an immutable image digest from the registry. The repository’s root Compose file builds locally; **use this directory’s Compose file on Synology**.
 
 ```sh
+# If transferring current Mac data, follow step 4 before starting the app.
 docker compose pull
 docker compose up -d --wait
 docker compose ps
