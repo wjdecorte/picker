@@ -90,3 +90,7 @@ docker compose up -d --wait app
 Use a previous immutable image digest to roll back application code. Database migrations may require a matching backup restore; changing the image alone does not reverse a schema migration. Keep off-NAS backups. Never use `docker compose down -v` to update the app; that removes database storage.
 
 References: [GitHub container registry authentication](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry), [Docker multi-platform builds](https://docs.docker.com/build/ci/github-actions/multi-platform/).
+
+## Current sportsbook spreads
+
+The updated image retrieves ESPN pregame odds alongside scores and displays the named sportsbook (DraftKings when available), selected-team spread and check time. No API key or extra environment variable is needed. Use **Refresh scores & lines** for an immediate check; page-open updates run every 90 seconds. Pull the updated image after its GitHub build completes. Saved pick lines and sealed initial cards never change. Closing spreads remain separate and manual; last pregame quotes are not asserted to be verified closing lines.

@@ -1,0 +1,936 @@
+{
+  "season": {
+    "year": 2026,
+    "type": 2
+  },
+  "week": {
+    "number": 7
+  },
+  "events": [
+    {
+      "id": "401873010",
+      "date": "2026-10-23T00:15Z",
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Thu, October 22nd at 8:15 PM EDT",
+          "shortDetail": "10/22 - 8:15 PM EDT"
+        }
+      },
+      "competitions": [
+        {
+          "competitors": [
+            {
+              "homeAway": "home",
+              "team": {
+                "displayName": "Chicago Bears"
+              },
+              "score": "0"
+            },
+            {
+              "homeAway": "away",
+              "team": {
+                "displayName": "New England Patriots"
+              },
+              "score": "0"
+            }
+          ],
+          "odds": [
+            {
+              "provider": {
+                "id": "100",
+                "name": "DraftKings",
+                "priority": 1,
+                "displayName": "DraftKings"
+              },
+              "spread": -3.0,
+              "homeTeamOdds": {
+                "favorite": true
+              },
+              "awayTeamOdds": {
+                "favorite": false
+              },
+              "pointSpread": {
+                "home": {
+                  "close": {
+                    "line": "-3"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "line": "+3"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401873011",
+      "date": "2026-10-25T13:30Z",
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, October 25th at 9:30 AM EDT",
+          "shortDetail": "10/25 - 9:30 AM EDT"
+        }
+      },
+      "competitions": [
+        {
+          "competitors": [
+            {
+              "homeAway": "home",
+              "team": {
+                "displayName": "New Orleans Saints"
+              },
+              "score": "0"
+            },
+            {
+              "homeAway": "away",
+              "team": {
+                "displayName": "Pittsburgh Steelers"
+              },
+              "score": "0"
+            }
+          ],
+          "odds": [
+            {
+              "provider": {
+                "id": "100",
+                "name": "DraftKings",
+                "priority": 1
+              },
+              "spread": 3.5,
+              "homeTeamOdds": {
+                "favorite": false
+              },
+              "awayTeamOdds": {
+                "favorite": true
+              },
+              "pointSpread": {
+                "home": {
+                  "close": {
+                    "line": "+3.5"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "line": "-3.5"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401873017",
+      "date": "2026-10-25T17:00Z",
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, October 25th at 1:00 PM EDT",
+          "shortDetail": "10/25 - 1:00 PM EDT"
+        }
+      },
+      "competitions": [
+        {
+          "competitors": [
+            {
+              "homeAway": "home",
+              "team": {
+                "displayName": "Atlanta Falcons"
+              },
+              "score": "0"
+            },
+            {
+              "homeAway": "away",
+              "team": {
+                "displayName": "San Francisco 49ers"
+              },
+              "score": "0"
+            }
+          ],
+          "odds": [
+            {
+              "provider": {
+                "id": "100",
+                "name": "DraftKings",
+                "priority": 1
+              },
+              "spread": 2.5,
+              "homeTeamOdds": {
+                "favorite": false
+              },
+              "awayTeamOdds": {
+                "favorite": true
+              },
+              "pointSpread": {
+                "home": {
+                  "close": {
+                    "line": "+2.5"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "line": "-2.5"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401873013",
+      "date": "2026-10-25T17:00Z",
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, October 25th at 1:00 PM EDT",
+          "shortDetail": "10/25 - 1:00 PM EDT"
+        }
+      },
+      "competitions": [
+        {
+          "competitors": [
+            {
+              "homeAway": "home",
+              "team": {
+                "displayName": "Tennessee Titans"
+              },
+              "score": "0"
+            },
+            {
+              "homeAway": "away",
+              "team": {
+                "displayName": "Cleveland Browns"
+              },
+              "score": "0"
+            }
+          ],
+          "odds": [
+            {
+              "provider": {
+                "id": "100",
+                "name": "DraftKings",
+                "priority": 1
+              },
+              "spread": 1.5,
+              "homeTeamOdds": {
+                "favorite": false
+              },
+              "awayTeamOdds": {
+                "favorite": true
+              },
+              "pointSpread": {
+                "home": {
+                  "close": {
+                    "line": "+1.5"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "line": "-1.5"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401873014",
+      "date": "2026-10-25T17:00Z",
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, October 25th at 1:00 PM EDT",
+          "shortDetail": "10/25 - 1:00 PM EDT"
+        }
+      },
+      "competitions": [
+        {
+          "competitors": [
+            {
+              "homeAway": "home",
+              "team": {
+                "displayName": "Minnesota Vikings"
+              },
+              "score": "0"
+            },
+            {
+              "homeAway": "away",
+              "team": {
+                "displayName": "Indianapolis Colts"
+              },
+              "score": "0"
+            }
+          ],
+          "odds": [
+            {
+              "provider": {
+                "id": "100",
+                "name": "DraftKings",
+                "priority": 1
+              },
+              "spread": -6.5,
+              "homeTeamOdds": {
+                "favorite": true
+              },
+              "awayTeamOdds": {
+                "favorite": false
+              },
+              "pointSpread": {
+                "home": {
+                  "close": {
+                    "line": "-6.5"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "line": "+6.5"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401873015",
+      "date": "2026-10-25T17:00Z",
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, October 25th at 1:00 PM EDT",
+          "shortDetail": "10/25 - 1:00 PM EDT"
+        }
+      },
+      "competitions": [
+        {
+          "competitors": [
+            {
+              "homeAway": "home",
+              "team": {
+                "displayName": "New York Jets"
+              },
+              "score": "0"
+            },
+            {
+              "homeAway": "away",
+              "team": {
+                "displayName": "Miami Dolphins"
+              },
+              "score": "0"
+            }
+          ],
+          "odds": [
+            {
+              "provider": {
+                "id": "100",
+                "name": "DraftKings",
+                "priority": 1
+              },
+              "spread": -4.5,
+              "homeTeamOdds": {
+                "favorite": true
+              },
+              "awayTeamOdds": {
+                "favorite": false
+              },
+              "pointSpread": {
+                "home": {
+                  "close": {
+                    "line": "-4.5"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "line": "+4.5"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401873018",
+      "date": "2026-10-25T17:00Z",
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, October 25th at 1:00 PM EDT",
+          "shortDetail": "10/25 - 1:00 PM EDT"
+        }
+      },
+      "competitions": [
+        {
+          "competitors": [
+            {
+              "homeAway": "home",
+              "team": {
+                "displayName": "Carolina Panthers"
+              },
+              "score": "0"
+            },
+            {
+              "homeAway": "away",
+              "team": {
+                "displayName": "Tampa Bay Buccaneers"
+              },
+              "score": "0"
+            }
+          ],
+          "odds": [
+            {
+              "provider": {
+                "id": "100",
+                "name": "DraftKings",
+                "priority": 1
+              },
+              "spread": -3.0,
+              "homeTeamOdds": {
+                "favorite": true
+              },
+              "awayTeamOdds": {
+                "favorite": false
+              },
+              "pointSpread": {
+                "home": {
+                  "close": {
+                    "line": "-3"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "line": "+3"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401873012",
+      "date": "2026-10-25T17:00Z",
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, October 25th at 1:00 PM EDT",
+          "shortDetail": "10/25 - 1:00 PM EDT"
+        }
+      },
+      "competitions": [
+        {
+          "competitors": [
+            {
+              "homeAway": "home",
+              "team": {
+                "displayName": "Baltimore Ravens"
+              },
+              "score": "0"
+            },
+            {
+              "homeAway": "away",
+              "team": {
+                "displayName": "Cincinnati Bengals"
+              },
+              "score": "0"
+            }
+          ],
+          "odds": [
+            {
+              "provider": {
+                "id": "100",
+                "name": "DraftKings",
+                "priority": 1
+              },
+              "spread": -1.5,
+              "homeTeamOdds": {
+                "favorite": true
+              },
+              "awayTeamOdds": {
+                "favorite": false
+              },
+              "pointSpread": {
+                "home": {
+                  "close": {
+                    "line": "-1.5"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "line": "+1.5"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401873016",
+      "date": "2026-10-25T17:00Z",
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, October 25th at 1:00 PM EDT",
+          "shortDetail": "10/25 - 1:00 PM EDT"
+        }
+      },
+      "competitions": [
+        {
+          "competitors": [
+            {
+              "homeAway": "home",
+              "team": {
+                "displayName": "Houston Texans"
+              },
+              "score": "0"
+            },
+            {
+              "homeAway": "away",
+              "team": {
+                "displayName": "New York Giants"
+              },
+              "score": "0"
+            }
+          ],
+          "odds": [
+            {
+              "provider": {
+                "id": "100",
+                "name": "DraftKings",
+                "priority": 1
+              },
+              "spread": -10.5,
+              "homeTeamOdds": {
+                "favorite": true
+              },
+              "awayTeamOdds": {
+                "favorite": false
+              },
+              "pointSpread": {
+                "home": {
+                  "close": {
+                    "line": "-10.5"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "line": "+10.5"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401873019",
+      "date": "2026-10-25T20:05Z",
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, October 25th at 4:05 PM EDT",
+          "shortDetail": "10/25 - 4:05 PM EDT"
+        }
+      },
+      "competitions": [
+        {
+          "competitors": [
+            {
+              "homeAway": "home",
+              "team": {
+                "displayName": "Arizona Cardinals"
+              },
+              "score": "0"
+            },
+            {
+              "homeAway": "away",
+              "team": {
+                "displayName": "Denver Broncos"
+              },
+              "score": "0"
+            }
+          ],
+          "odds": [
+            {
+              "provider": {
+                "id": "100",
+                "name": "DraftKings",
+                "priority": 1
+              },
+              "spread": 4.5,
+              "homeTeamOdds": {
+                "favorite": false
+              },
+              "awayTeamOdds": {
+                "favorite": true
+              },
+              "pointSpread": {
+                "home": {
+                  "close": {
+                    "line": "+4.5"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "line": "-4.5"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401873020",
+      "date": "2026-10-25T20:25Z",
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, October 25th at 4:25 PM EDT",
+          "shortDetail": "10/25 - 4:25 PM EDT"
+        }
+      },
+      "competitions": [
+        {
+          "competitors": [
+            {
+              "homeAway": "home",
+              "team": {
+                "displayName": "Detroit Lions"
+              },
+              "score": "0"
+            },
+            {
+              "homeAway": "away",
+              "team": {
+                "displayName": "Green Bay Packers"
+              },
+              "score": "0"
+            }
+          ],
+          "odds": [
+            {
+              "provider": {
+                "id": "100",
+                "name": "DraftKings",
+                "priority": 1
+              },
+              "spread": -3.0,
+              "homeTeamOdds": {
+                "favorite": true
+              },
+              "awayTeamOdds": {
+                "favorite": false
+              },
+              "pointSpread": {
+                "home": {
+                  "close": {
+                    "line": "-3"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "line": "+3"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401873021",
+      "date": "2026-10-25T20:25Z",
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, October 25th at 4:25 PM EDT",
+          "shortDetail": "10/25 - 4:25 PM EDT"
+        }
+      },
+      "competitions": [
+        {
+          "competitors": [
+            {
+              "homeAway": "home",
+              "team": {
+                "displayName": "Las Vegas Raiders"
+              },
+              "score": "0"
+            },
+            {
+              "homeAway": "away",
+              "team": {
+                "displayName": "Los Angeles Rams"
+              },
+              "score": "0"
+            }
+          ],
+          "odds": [
+            {
+              "provider": {
+                "id": "100",
+                "name": "DraftKings",
+                "priority": 1
+              },
+              "spread": 3.5,
+              "homeTeamOdds": {
+                "favorite": false
+              },
+              "awayTeamOdds": {
+                "favorite": true
+              },
+              "pointSpread": {
+                "home": {
+                  "close": {
+                    "line": "+3.5"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "line": "-3.5"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401873022",
+      "date": "2026-10-26T00:20Z",
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Sun, October 25th at 8:20 PM EDT",
+          "shortDetail": "10/25 - 8:20 PM EDT"
+        }
+      },
+      "competitions": [
+        {
+          "competitors": [
+            {
+              "homeAway": "home",
+              "team": {
+                "displayName": "Seattle Seahawks"
+              },
+              "score": "0"
+            },
+            {
+              "homeAway": "away",
+              "team": {
+                "displayName": "Kansas City Chiefs"
+              },
+              "score": "0"
+            }
+          ],
+          "odds": [
+            {
+              "provider": {
+                "id": "100",
+                "name": "DraftKings",
+                "priority": 1
+              },
+              "spread": -3.0,
+              "homeTeamOdds": {
+                "favorite": true
+              },
+              "awayTeamOdds": {
+                "favorite": false
+              },
+              "pointSpread": {
+                "home": {
+                  "close": {
+                    "line": "-3"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "line": "+3"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "401873009",
+      "date": "2026-10-27T00:15Z",
+      "status": {
+        "clock": 0.0,
+        "displayClock": "0:00",
+        "period": 0,
+        "type": {
+          "id": "1",
+          "name": "STATUS_SCHEDULED",
+          "state": "pre",
+          "completed": false,
+          "description": "Scheduled",
+          "detail": "Mon, October 26th at 8:15 PM EDT",
+          "shortDetail": "10/26 - 8:15 PM EDT"
+        }
+      },
+      "competitions": [
+        {
+          "competitors": [
+            {
+              "homeAway": "home",
+              "team": {
+                "displayName": "Philadelphia Eagles"
+              },
+              "score": "0"
+            },
+            {
+              "homeAway": "away",
+              "team": {
+                "displayName": "Dallas Cowboys"
+              },
+              "score": "0"
+            }
+          ],
+          "odds": [
+            {
+              "provider": {
+                "id": "100",
+                "name": "DraftKings",
+                "priority": 1
+              },
+              "spread": 4.5,
+              "homeTeamOdds": {
+                "favorite": false
+              },
+              "awayTeamOdds": {
+                "favorite": true
+              },
+              "pointSpread": {
+                "home": {
+                  "close": {
+                    "line": "+4.5"
+                  }
+                },
+                "away": {
+                  "close": {
+                    "line": "-4.5"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

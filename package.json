@@ -10,7 +10,7 @@
     "build": "next build --webpack",
     "start": "next start --hostname 127.0.0.1 --port 3000",
     "typecheck": "tsc --noEmit",
-    "test": "node --import ./tests/loader.mjs --test tests/history.test.mjs tests/access.test.mjs",
+    "test": "node --import ./tests/loader.mjs --test tests/history.test.mjs tests/access.test.mjs tests/market.test.mjs",
     "test:db": "node --env-file-if-exists=.env --import ./tests/loader.mjs --test tests/postgres.test.mjs",
     "db:migrate": "node --env-file-if-exists=.env scripts/migrate.mjs",
     "db:import": "node --env-file-if-exists=.env scripts/import-legacy.mjs",

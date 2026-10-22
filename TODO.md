@@ -36,7 +36,8 @@
 
 ## Analytics and data quality
 
-- [ ] Add an odds consensus adapter without changing saved pick lines.
+- [x] Add ESPN pregame sportsbook quotes without changing saved pick lines.
+- [ ] Add a licensed multi-book consensus adapter if needed.
 - [ ] Add closing-line snapshots and test CLV with side changes.
 - [ ] Add injury/weather adapters with source and observation timestamps.
 - [ ] Compare initial/final performance across multiple weeks and seasons.

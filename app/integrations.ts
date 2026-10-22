@@ -6,4 +6,4 @@ export interface NflDataProvider {
  market(games:GameReference[]):Promise<{game:GameReference;team:string;spread:number;observedAt:string;closing:boolean}[]>;
  reports(games:GameReference[]):Promise<{game:GameReference;injuryNotes:string;weatherNotes:string}[]>;
 }
-export const feedsEnabled=false;
+export const feedsEnabled={scores:true,spreads:true,injuries:false,weather:false};
