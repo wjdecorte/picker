@@ -94,3 +94,6 @@ References: [GitHub container registry authentication](https://docs.github.com/e
 ## Current sportsbook spreads
 
 The updated image retrieves ESPN pregame odds alongside scores and displays the named sportsbook (DraftKings when available), selected-team spread and check time. No API key or extra environment variable is needed. Use **Refresh scores & lines** for an immediate check; page-open updates run every 90 seconds. Pull the updated image after its GitHub build completes. Saved pick lines and sealed initial cards never change. Closing spreads remain separate and manual; last pregame quotes are not asserted to be verified closing lines.
+
+### Prediction snapshot comparisons
+After pulling the updated app image, open **Weekly review → Week 7 → Original vs Sunday Recheck** (also available under Manage picks). The saved October 25 recheck is already in the NAS database; do not re-import it. Its four pregame selections were recorded before their kickoffs; the other ten supplied proposals remain excluded audit entries. Original versions were preserved. Future rechecks use **Add a separate snapshot**, with server-time validation and independent grading. Updating the app container requires no database reset or new environment variables.

@@ -124,3 +124,11 @@ This creates a dated private `backups/*.dump` with PostgreSQL’s `pg_dump`. Kee
 Application code is licensed under [MIT](LICENSE). Third-party libraries and remotely loaded fonts retain their own licenses; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). NFL and team names are descriptive; no affiliation is claimed.
 
 Implementation references: [Next.js standalone output](https://nextjs.org/docs/app/api-reference/config/next-config-js/output), [node-postgres transactions](https://node-postgres.com/features/transactions), and the [official PostgreSQL image](https://hub.docker.com/_/postgres).
+
+### Weekly prediction snapshots
+
+Manage picks and Weekly review show **Original vs Sunday Recheck**, per-snapshot ATS/Recommended/Best Bet records, model units and highlighted changes. Excluded proposals are audit evidence, never graded recheck predictions. Saved initial cards and version rows remain immutable.
+
+The snapshot form lets you select pregame games and enter team, proposed spread, confidence, classification and rationale. The API accepts the equivalent JSON array of `{gameId, team, spread, confidence, classification, rationale}`. `POST /api/snapshots` validates the fixed ESPN season/week endpoint, event IDs, teams, kickoff and final scores, then records the server time after retrieval. Only games still pregame at that time receive versions; at-kickoff, live, final and supplied Locked entries are excluded. Conflicting finals or kickoffs fail the save. Client-supplied timestamps cannot backdate a prediction. New comparison snapshots do not change official selections or actual wagers.
+
+Each version retains original version ID/spread, proposed spread, confidence/classification/rationale, recorded timestamp, validated kickoff, and odds provenance. User-supplied historical lines have **unknown odds timestamp / unverified proposed odds**; a separately recorded observed ESPN sportsbook quote must never be confused with the proposed line. Snapshot metadata is stored in existing PostgreSQL JSONB payloads; no schema migration is needed. The October 25 NAS snapshot uses the existing sealed Sunday card and stores its audit/evidence in immutable version notes for compatibility with the previous image; the comparison reads this evidence without rewriting it.

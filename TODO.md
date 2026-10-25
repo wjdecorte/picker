@@ -43,3 +43,5 @@
 - [ ] Compare initial/final performance across multiple weeks and seasons.
 - [ ] Expand automated browser coverage for mobile forms, keyboard use and accessible tables.
 - [ ] Self-host fonts for fully offline/local rendering.
+- [x] Immutable Sunday recheck comparison with server-time eligibility, excluded-proposal audit and independent ATS/Best Bet metrics.
+- [ ] Add optional trusted historical odds archives with bookmaker update timestamps; retain unknown provenance for user-proposed historical lines.
