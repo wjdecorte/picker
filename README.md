@@ -137,3 +137,29 @@ Each version retains original version ID/spread, proposed spread, confidence/cla
 The user-authorized October 28, 2026 card is in `db/imports/2026-w8-initial.json`. On the next container start, `scripts/import-initial-cards.mjs` imports its 14 selections into an existing normalized dashboard as a sealed INITIAL card. Source: bet365 via FOX Sports, user-reported October 28 at 2:25 PM ET. Exact prediction time is unknown; actual database entry time is recorded separately. No wagers are created; BAL remains an inactive Conditional. Results grade each immutable version at its own spread.
 
 The import runs atomically, preserves earlier weeks, and skips an identical prior import. If Week 8 data already exists or the same import ID has different contents, it refuses to overwrite it. Do not edit an already-applied manifest. On a completely empty installation, it defers until the dashboard has initialized; restart the app afterward to import. Pulling/recreating only the app container on the existing NAS applies the card without a database reset.
+
+## Make picks inside the app
+
+The primary flow is **This Week → Load another week → Generate picks → Override**. History contains active picks, all saved versions, model-only snapshots, manual overrides, weekly notes and detailed analytics. Settings shows model configuration, feed coverage and backup export. Manual picks work without an LLM key; predictions lock at kickoff.
+
+Add to the NAS project's `.env`:
+
+```dotenv
+OPENAI_API_KEY=your-openai-api-key
+OPENAI_MODEL=gpt-4.1
+```
+
+**Also update the project's Compose file** from `compose.yaml` or `deploy/synology/compose.yaml`: its app environment must pass `OPENAI_API_KEY` and `OPENAI_MODEL`. An `.env` entry alone does not enter a container without the Compose mapping. Pull the new image and recreate only the app:
+
+```sh
+docker compose pull app
+docker compose up -d --force-recreate app
+```
+
+The API key is server-only, never a `NEXT_PUBLIC_*` value, never returned to the browser, and never included in the model input, database payloads or exports. API requests use the OpenAI Responses API with strict JSON schema, `store:false` and a fixed OpenAI endpoint. Settings reports whether the key is configured, not whether it has been authenticated. Each generation uses the configured OpenAI API account; none runs automatically.
+
+Generation fetches ESPN's schedule and pregame sportsbook quotes, includes only unstarted games with recent quotes, validates one response per game, and derives the picked spread on the server. It rechecks provider status and kickoff after the model finishes. Model confidence is an assessment, not a calibrated win probability. No injury, weather or current team-performance feed is connected, so the model is explicitly required to avoid fabricating those facts and to be conservative when evidence is limited.
+
+AI cards and overrides append sealed versions to existing PostgreSQL tables. Migration `002_model_runs.sql` tracks generation requests to avoid duplicate requests and record completion/failure; an advisory lock allows one generation per week. Rechecks keep active manual overrides. “Use latest AI pick” pre-fills an override; saving records a new decision rather than deleting history. Source lines, retrieval timestamps, model/response ID and author origin are retained. No actual wager is created. Shared final scores grade each version independently. Existing trusted-LAN origin/Host checks protect all new write routes.
+
+Validation covers the OpenAI HTTP contract using mocked responses, refusal/credit/access errors, invalid model output, PostgreSQL persistence, request replay, independent grading, immutable originals and override preservation. A live paid OpenAI call requires your own configured key.

@@ -46,3 +46,7 @@
 - [x] Immutable Sunday recheck comparison with server-time eligibility, excluded-proposal audit and independent ATS/Best Bet metrics.
 - [ ] Add optional trusted historical odds archives with bookmaker update timestamps; retain unknown provenance for user-proposed historical lines.
 - [x] Import the user-supplied Week 8 October 28 INITIAL card atomically on NAS app update, with separate source and entry timestamps.
+- [x] In-app weekly schedule loading, OpenAI generation, preserved manual overrides and three-view workspace.
+- [x] Deduplicated model requests, per-week generation lock, second kickoff check, immutable model provenance and independent grading.
+- [ ] Add the user's OpenAI key to the NAS environment and update Compose mappings; pull/recreate the app, then verify a live generation.
+- [ ] Integrate verified injury, weather and team-performance evidence before treating model confidence as richer than a line-only assessment.

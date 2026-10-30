@@ -20,7 +20,7 @@ test('PostgreSQL migration, historical import, immutable snapshots, CAS, rollbac
  const actualDate=globalThis.Date;
  try {
   script('scripts/migrate.mjs');script('scripts/migrate.mjs');
-  assert.equal((await getPool().query('SELECT * FROM schema_migrations')).rowCount,1);
+  assert.equal((await getPool().query('SELECT * FROM schema_migrations')).rowCount,2);
   // Optional real legacy backup import; all runs also exercise a deterministic fresh bootstrap.
   if(process.env.TEST_LEGACY_EXPORT) {
    script('scripts/import-legacy.mjs',[process.env.TEST_LEGACY_EXPORT]);

@@ -97,3 +97,6 @@ The updated image retrieves ESPN pregame odds alongside scores and displays the 
 
 ### Prediction snapshot comparisons
 After pulling the updated app image, open **Weekly review → Week 7 → Original vs Sunday Recheck** (also available under Manage picks). The saved October 25 recheck is already in the NAS database; do not re-import it. Its four pregame selections were recorded before their kickoffs; the other ten supplied proposals remain excluded audit entries. Original versions were preserved. Future rechecks use **Add a separate snapshot**, with server-time validation and independent grading. Updating the app container requires no database reset or new environment variables.
+
+### In-app OpenAI picks
+Use the updated Compose file (including OPENAI_API_KEY and OPENAI_MODEL mappings), add the key/model to the adjacent `.env`, then pull and recreate the app container. No key is included in the repository/image. `OPENAI_MODEL` defaults to `gpt-4.1`. The startup migration adds `model_runs` without resetting existing data. Open Settings to confirm **API key configured**, then use This Week to load a schedule and generate a card. All later picking, overriding, score entry and history review occur within the app. No actual wager or unattended model call is created.

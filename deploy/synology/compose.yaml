@@ -22,6 +22,8 @@ services:
       DATABASE_URL: postgresql://picker:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/picker
       APP_ORIGIN: ${APP_ORIGIN:-http://localhost:8756}
       ALLOW_LAN_ACCESS: "true"
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4.1}
       RESULTS_SERVICE_KEY: ${RESULTS_SERVICE_KEY:-}
     ports:
       - "${APP_PORT:-8756}:3000"
