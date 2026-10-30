@@ -1,0 +1,152 @@
+{
+  "id": "2026-w8-initial",
+  "season": 2026,
+  "week": 8,
+  "analysisDate": "2026-10-28",
+  "oddsTimestamp": "2026-10-28T18:25:00Z",
+  "oddsSource": "bet365 via FOX Sports (user-reported)",
+  "scheduleSource": "ESPN scoreboard",
+  "scheduleCheckedAt": "2026-10-30T01:01:41.967164+00:00",
+  "games": [
+    {
+      "externalId": "401873023",
+      "away": "Carolina Panthers",
+      "home": "Green Bay Packers",
+      "kickoff": "2026-10-30T00:15Z",
+      "team": "Green Bay Packers",
+      "spread": -3.5,
+      "confidence": 5.5,
+      "classification": "Lean"
+    },
+    {
+      "externalId": "401873031",
+      "away": "Tennessee Titans",
+      "home": "Cincinnati Bengals",
+      "kickoff": "2026-11-01T18:00Z",
+      "team": "Tennessee Titans",
+      "spread": 10.5,
+      "confidence": 5,
+      "classification": "Lean"
+    },
+    {
+      "externalId": "401873029",
+      "away": "Las Vegas Raiders",
+      "home": "New York Jets",
+      "kickoff": "2026-11-01T18:00Z",
+      "team": "Las Vegas Raiders",
+      "spread": 1.5,
+      "confidence": 4.5,
+      "classification": "Pass"
+    },
+    {
+      "externalId": "401873024",
+      "away": "Arizona Cardinals",
+      "home": "Dallas Cowboys",
+      "kickoff": "2026-11-01T18:00Z",
+      "team": "Dallas Cowboys",
+      "spread": -6.5,
+      "confidence": 6,
+      "classification": "Play"
+    },
+    {
+      "externalId": "401873027",
+      "away": "Cleveland Browns",
+      "home": "Pittsburgh Steelers",
+      "kickoff": "2026-11-01T18:00Z",
+      "team": "Cleveland Browns",
+      "spread": 3.5,
+      "confidence": 6.5,
+      "classification": "Best Bet"
+    },
+    {
+      "externalId": "401873026",
+      "away": "Baltimore Ravens",
+      "home": "Buffalo Bills",
+      "kickoff": "2026-11-01T18:00Z",
+      "team": "Baltimore Ravens",
+      "spread": 3.5,
+      "confidence": 5,
+      "classification": "Conditional"
+    },
+    {
+      "externalId": "401873030",
+      "away": "Minnesota Vikings",
+      "home": "Detroit Lions",
+      "kickoff": "2026-11-01T18:00Z",
+      "team": "Minnesota Vikings",
+      "spread": 3.5,
+      "confidence": 6,
+      "classification": "Play"
+    },
+    {
+      "externalId": "401873025",
+      "away": "Atlanta Falcons",
+      "home": "Tampa Bay Buccaneers",
+      "kickoff": "2026-11-01T18:00Z",
+      "team": "Tampa Bay Buccaneers",
+      "spread": -2.5,
+      "confidence": 6,
+      "classification": "Play"
+    },
+    {
+      "externalId": "401873028",
+      "away": "Indianapolis Colts",
+      "home": "Jacksonville Jaguars",
+      "kickoff": "2026-11-01T18:00Z",
+      "team": "Indianapolis Colts",
+      "spread": 9.5,
+      "confidence": 5,
+      "classification": "Lean"
+    },
+    {
+      "externalId": "401873032",
+      "away": "Los Angeles Chargers",
+      "home": "Los Angeles Rams",
+      "kickoff": "2026-11-01T21:05Z",
+      "team": "Los Angeles Rams",
+      "spread": -6.5,
+      "confidence": 6,
+      "classification": "Play"
+    },
+    {
+      "externalId": "401873034",
+      "away": "New England Patriots",
+      "home": "Miami Dolphins",
+      "kickoff": "2026-11-01T21:25Z",
+      "team": "Miami Dolphins",
+      "spread": 6.5,
+      "confidence": 5,
+      "classification": "Lean"
+    },
+    {
+      "externalId": "401873033",
+      "away": "Kansas City Chiefs",
+      "home": "Denver Broncos",
+      "kickoff": "2026-11-01T21:25Z",
+      "team": "Denver Broncos",
+      "spread": 1.5,
+      "confidence": 5.5,
+      "classification": "Lean"
+    },
+    {
+      "externalId": "401873035",
+      "away": "Philadelphia Eagles",
+      "home": "Washington Commanders",
+      "kickoff": "2026-11-02T01:20Z",
+      "team": "Philadelphia Eagles",
+      "spread": 5.5,
+      "confidence": 4.5,
+      "classification": "Pass"
+    },
+    {
+      "externalId": "401873036",
+      "away": "Chicago Bears",
+      "home": "Seattle Seahawks",
+      "kickoff": "2026-11-03T01:15Z",
+      "team": "Chicago Bears",
+      "spread": 3.5,
+      "confidence": 5.5,
+      "classification": "Lean"
+    }
+  ]
+}

@@ -45,3 +45,4 @@
 - [ ] Self-host fonts for fully offline/local rendering.
 - [x] Immutable Sunday recheck comparison with server-time eligibility, excluded-proposal audit and independent ATS/Best Bet metrics.
 - [ ] Add optional trusted historical odds archives with bookmaker update timestamps; retain unknown provenance for user-proposed historical lines.
+- [x] Import the user-supplied Week 8 October 28 INITIAL card atomically on NAS app update, with separate source and entry timestamps.

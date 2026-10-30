@@ -17,6 +17,7 @@ test('PostgreSQL migration, historical import, immutable snapshots, CAS, rollbac
  const script=(path,args=[])=>{const r=spawnSync(process.execPath,[path,...args],{env:process.env,encoding:'utf8'});assert.equal(r.status,0,r.stderr);return r.stdout;};
  const call=(fn,data)=>fn(new Request('http://127.0.0.1:3000/api/data',{method:fn===PUT?'PUT':'POST',body:JSON.stringify(data)}));
  const origin=process.env.APP_ORIGIN;process.env.APP_ORIGIN='http://127.0.0.1:3000';
+ const actualDate=globalThis.Date;
  try {
   script('scripts/migrate.mjs');script('scripts/migrate.mjs');
   assert.equal((await getPool().query('SELECT * FROM schema_migrations')).rowCount,1);
@@ -27,6 +28,8 @@ test('PostgreSQL migration, historical import, immutable snapshots, CAS, rollbac
    let imported=await loadState();assert.equal(imported.eventGames.length,original.games.length);assert.equal(imported.pickVersions.length,original.pick_versions.length);assert.equal(imported.actualBets.length,original.actual_bets.length);
    for(const old of original.pick_versions)assert.deepEqual(imported.pickVersions.find(p=>p.id===old.id),JSON.parse(old.payload));
   }
+  // Freeze this staged-edit fixture before Week 7 kickoff; production guards use real time.
+  globalThis.Date=class extends actualDate {constructor(...args){super(...(args.length?args:['2026-10-22T12:00:00Z']));}static now(){return actualDate.parse('2026-10-22T12:00:00Z');}};
   let s=await loadState();assert.equal(s.pickVersions.length,41);assert.equal(categoryStats(officialGames(s),'All Picks').record,'12–14');
   await assert.rejects(getPool().query('UPDATE pick_versions SET confidence=9 WHERE id=$1',[s.pickVersions[0].id]),/immutable/);
   await assert.rejects(getPool().query('DELETE FROM pick_versions WHERE id=$1',[s.pickVersions[0].id]),/immutable/);
@@ -42,5 +45,5 @@ test('PostgreSQL migration, historical import, immutable snapshots, CAS, rollbac
   body={...responseData(s),games:officialGames(s).map(x=>x.id===g.id?g:x),editedGameId:g.id,pickCardId:'2026-w7-final',revisionReasons:{[g.id]:'Test new evidence'}};
   assert.equal((await call(PUT,body)).status,200);s=await loadState();assert.equal(s.eventGames.find(x=>x.id===g.id).officialVersionId,initialId);assert.equal(cardGames(s,'2026-w7-final')[0].pick,event.home);assert.equal(cardGames(s,'2026-w7-initial')[0].pick,event.away);
   assert.equal((await call(POST,{action:'finalize-card',cardId:'2026-w7-final',version:s.version})).status,200);s=await loadState();assert.equal(officialGames(s).find(x=>x.id===g.id).pick,event.home);assert.equal(s.eventGames.filter(x=>x.id===g.id).length,1);
- } finally {await closeDatabase();process.env.DATABASE_URL=base;if(origin===undefined)delete process.env.APP_ORIGIN;else process.env.APP_ORIGIN=origin;await admin.query(`DROP SCHEMA ${schema} CASCADE`);await admin.end();}
+ } finally {globalThis.Date=actualDate;await closeDatabase();process.env.DATABASE_URL=base;if(origin===undefined)delete process.env.APP_ORIGIN;else process.env.APP_ORIGIN=origin;await admin.query(`DROP SCHEMA ${schema} CASCADE`);await admin.end();}
 });

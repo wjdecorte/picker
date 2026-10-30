@@ -17,7 +17,8 @@ COPY --from=builder --chown=picker:picker /app/.next/standalone ./
 COPY --from=builder --chown=picker:picker /app/.next/static ./.next/static
 COPY --from=builder --chown=picker:picker /app/public ./public
 COPY --from=builder --chown=picker:picker /app/db/migrations ./db/migrations
-COPY --from=builder --chown=picker:picker /app/scripts/migrate.mjs /app/scripts/import-legacy.mjs ./scripts/
+COPY --from=builder --chown=picker:picker /app/scripts/migrate.mjs /app/scripts/import-legacy.mjs /app/scripts/import-initial-cards.mjs ./scripts/
+COPY --from=builder --chown=picker:picker /app/db/imports ./db/imports
 COPY --chown=picker:picker scripts/docker-entrypoint.sh ./scripts/
 USER picker
 EXPOSE 3000
