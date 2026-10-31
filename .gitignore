@@ -19,3 +19,6 @@ backups/
 .wrangler/
 .vinext/
 .sites-runtime/
+
+.picker-private/
+private/

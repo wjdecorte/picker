@@ -22,9 +22,13 @@ services:
       DATABASE_URL: postgresql://picker:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/picker
       APP_ORIGIN: ${APP_ORIGIN:-http://localhost:8756}
       ALLOW_LAN_ACCESS: "true"
+      CHATGPT_AUTH_DIR: /app/private/chatgpt
+      CHATGPT_CALLBACK_PORT: ${CHATGPT_CALLBACK_PORT:-8757}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4.1}
       RESULTS_SERVICE_KEY: ${RESULTS_SERVICE_KEY:-}
+    volumes:
+      - chatgpt_auth:/app/private
     ports:
       - "${APP_PORT:-8756}:3000"
     depends_on:
@@ -36,3 +40,4 @@ services:
       - ALL
 volumes:
   postgres_data:
+  chatgpt_auth:

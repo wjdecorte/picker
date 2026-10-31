@@ -11,3 +11,6 @@ coverage
 *.dump
 *.log
 .DS_Store
+
+.picker-private/
+private/

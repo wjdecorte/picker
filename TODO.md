@@ -50,3 +50,9 @@
 - [x] Deduplicated model requests, per-week generation lock, second kickoff check, immutable model provenance and independent grading.
 - [ ] Add the user's OpenAI key to the NAS environment and update Compose mappings; pull/recreate the app, then verify a live generation.
 - [ ] Integrate verified injury, weather and team-performance evidence before treating model confidence as richer than a line-only assessment.
+
+## ChatGPT subscription connection
+- [x] Official ChatGPT OAuth/PKCE with signed ID-token verification and NAS loopback tunnel instructions.
+- [x] Protected persistent credentials, saved accounts/models, rotating refresh serialization and revocation.
+- [x] Streamed subscription generation, usage error handling and explicit billing selection without automatic API fallback.
+- [ ] Deploy updated Compose/image, complete the real Plus authorization through the SSH tunnel, and verify the first live card (requires Jason's OpenAI sign-in/consent).

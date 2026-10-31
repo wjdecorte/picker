@@ -20,6 +20,7 @@ COPY --from=builder --chown=picker:picker /app/db/migrations ./db/migrations
 COPY --from=builder --chown=picker:picker /app/scripts/migrate.mjs /app/scripts/import-legacy.mjs /app/scripts/import-initial-cards.mjs ./scripts/
 COPY --from=builder --chown=picker:picker /app/db/imports ./db/imports
 COPY --chown=picker:picker scripts/docker-entrypoint.sh ./scripts/
+RUN mkdir -p /app/private && chown picker:picker /app/private && chmod 700 /app/private
 USER picker
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 CMD node -e "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"

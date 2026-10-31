@@ -163,3 +163,27 @@ Generation fetches ESPN's schedule and pregame sportsbook quotes, includes only 
 AI cards and overrides append sealed versions to existing PostgreSQL tables. Migration `002_model_runs.sql` tracks generation requests to avoid duplicate requests and record completion/failure; an advisory lock allows one generation per week. Rechecks keep active manual overrides. “Use latest AI pick” pre-fills an override; saving records a new decision rather than deleting history. Source lines, retrieval timestamps, model/response ID and author origin are retained. No actual wager is created. Shared final scores grade each version independently. Existing trusted-LAN origin/Host checks protect all new write routes.
 
 Validation covers the OpenAI HTTP contract using mocked responses, refusal/credit/access errors, invalid model output, PostgreSQL persistence, request replay, independent grading, immutable originals and override preservation. A live paid OpenAI call requires your own configured key.
+
+## Use a ChatGPT Plus subscription
+
+Settings now supports **ChatGPT subscription** and **OpenAI API key · separate billing** as explicit alternatives. Continue with ChatGPT uses OpenAI's official public-client OAuth flow, not a copied browser session or an unofficial ChatGPT endpoint. Eligible accounts authorize plan usage; Plus usage is shared across connected apps. Availability and model access are determined by OpenAI at sign-in. New or reset connection storage defaults to ChatGPT, even when an API key is present. API mode must be explicitly selected in Settings. No subscription failure automatically falls back to API billing.
+
+For Synology:
+
+1. Update the Compose file, including the `chatgpt_auth` volume and `CHATGPT_AUTH_DIR` mapping. Recreate the app container with the new image. `OPENAI_API_KEY` is optional for subscription mode.
+2. On the computer running your browser, open an SSH tunnel (SSH must be enabled on the NAS):
+   ```sh
+   ssh -N -L 8757:127.0.0.1:8756 YOUR_NAS_USER@10.72.0.5
+   ```
+3. Open the dashboard on the NAS → Settings → select **ChatGPT subscription** → **Continue with ChatGPT**. Sign in and authorize plan usage in the OpenAI tab. Keep the tunnel open until the callback reports success.
+4. Return to Settings. It updates automatically. Choose a model from the signed-in account's catalog, then generate picks in This Week. The tunnel can now close; the NAS manages rotating token renewal. Phones can use that saved connection without a tunnel.
+
+OpenAI requires an HTTP callback on `127.0.0.1`, not a LAN callback or `localhost`. The default NAS callback is `http://127.0.0.1:8757/auth/callback`; `CHATGPT_CALLBACK_PORT` can change its port. The tunnel preserves that callback and sends it to the app without exposing a new NAS port. If SSH is unavailable, this NAS sign-in method cannot finish; enable SSH or use API-key mode. For a local app running in the same computer as the browser, set the callback port to its exposed HTTP app port; no tunnel is needed.
+
+Credentials and stable host/account registrations live in `chatgpt_auth` at `/app/private/chatgpt`, separate from picks and JSON exports. Local development defaults to `.picker-private/chatgpt`. Files use atomic writes with Unix permissions `0600`, inside an owner-only directory. Keep the volume private and do not delete it during image updates (`docker compose down -v` removes it). Pick backups do not contain connection credentials. If connection storage is lost, sign in again; picks remain in PostgreSQL. Do not copy the volume to another host: let a new installation create its own host ID and sign-in registration.
+
+Settings supports saved account registrations, explicit account/model selection, reconnect, model refresh, and disconnect. Disconnect attempts remote refresh-token revocation and clears tokens locally; if remote revocation cannot be confirmed, Settings directs you to [ChatGPT Usage](https://chatgpt.com/settings/usage). Transient provider failures keep credentials; terminal refresh failures require reconnect. The app does not access your ChatGPT conversations. This remains a single-user trusted-LAN dashboard, not a public multi-user login system.
+
+Subscription requests use the account-specific model catalog, `store:false`, streamed Responses, and completion-event validation. Partial streams, refusals and usage failures never save picks. Existing kickoff locks, sealed history and manual-override preservation still apply. The optional API key retains its existing separately billed integration.
+
+Official references: [Registration and sign-in](https://developers.openai.com/siwc/token-sharing-open-source/sign-in), [Models and inference](https://developers.openai.com/siwc/token-sharing-open-source/models-and-inference), [Account security and renewal](https://developers.openai.com/siwc/token-sharing-open-source/profiles-and-sessions).

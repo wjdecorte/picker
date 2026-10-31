@@ -100,3 +100,17 @@ After pulling the updated app image, open **Weekly review → Week 7 → Origina
 
 ### In-app OpenAI picks
 Use the updated Compose file (including OPENAI_API_KEY and OPENAI_MODEL mappings), add the key/model to the adjacent `.env`, then pull and recreate the app container. No key is included in the repository/image. `OPENAI_MODEL` defaults to `gpt-4.1`. The startup migration adds `model_runs` without resetting existing data. Open Settings to confirm **API key configured**, then use This Week to load a schedule and generate a card. All later picking, overriding, score entry and history review occur within the app. No actual wager or unattended model call is created.
+
+### ChatGPT Plus instead of an API key
+
+Use the updated Compose file: the app now mounts `chatgpt_auth:/app/private` and sets `CHATGPT_AUTH_DIR=/app/private/chatgpt`. Keep `OPENAI_API_KEY` empty if using only ChatGPT. Recreate the app container; preserve the new volume during updates.
+
+From the computer running your browser, keep this SSH tunnel open during sign-in:
+
+```sh
+ssh -N -L 8757:127.0.0.1:8756 YOUR_NAS_USER@10.72.0.5
+```
+
+Then open Settings on `http://10.72.0.5:8756`, select ChatGPT subscription and choose Continue with ChatGPT. Complete OpenAI consent, return to Settings and select an available model. Close the tunnel after the success callback. No port 8757 needs to be published on the NAS. OpenAI requires a browser-local `127.0.0.1` callback; SSH forwards it to the existing app port. This step requires SSH access to the NAS. Later model requests and renewals run from the NAS directly, including when using the dashboard from your phone.
+
+Changing the SSH tunnel port also requires changing `CHATGPT_CALLBACK_PORT`. The tunnel's destination is the app's published HTTP port (8756), not PostgreSQL. The credential volume contains sensitive tokens with owner-only permissions and stays out of pick backups/exports. Do not remove it with `down -v`, publish it, or copy it to another installation. Reconnect if it is lost. Subscription failures stop generation; separately billed API mode is available only by explicit selection in Settings.
