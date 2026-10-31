@@ -2,19 +2,19 @@
 name: NFL Picks Dashboard
 description: A compact scouting ledger for professional weekly ATS review.
 colors:
-  navy: "#122438"
-  canvas: "#f4f6f8"
+  navy: "#001d3c"
+  canvas: "#eef3f9"
   surface: "#ffffff"
-  ink: "#1b2a3d"
+  ink: "#102b49"
   muted: "#738092"
-  functional-muted: "#667487"
-  blue: "#2864b1"
-  primary-button: "#245b98"
-  primary-hover: "#17487e"
-  border: "#e2e7ed"
+  functional-muted: "#52657b"
+  blue: "#005fc7"
+  primary-button: "#d50a0a"
+  primary-hover: "#a00000"
+  border: "#d9e3ef"
   field-border: "#d8dfe7"
-  nav-active: "#263c54"
-  nav-hover: "#1a314b"
+  nav-active: "#005fc7"
+  nav-hover: "#003369"
   nav-text: "#9cacc0"
   insight: "#eaf0f7"
   pick-surface: "#f7f9fc"
@@ -32,8 +32,8 @@ colors:
   conditional-bg: "#f3eef9"
 typography:
   headline:
-    fontFamily: "IBM Plex Sans, sans-serif"
-    fontSize: "31px"
+    fontFamily: "Barlow Condensed, sans-serif"
+    fontSize: "58px"
     fontWeight: 600
     letterSpacing: "-0.03em"
   title:
@@ -88,8 +88,8 @@ components:
 
 # Design System: NFL Picks Dashboard
 
-## Scouting ledger, simplified
-The approved three-view workspace keeps navy navigation, a light canvas, IBM Plex Sans data typography and the Barlow Condensed brand. The mode is Operate: generate and review the weekly card, make personal overrides, and understand results.
+## NFL broadcast, built for weekly review
+The three-view workspace uses the NFL broadcast palette: Legacy Blue #001D3C, Shield Blue #003369, Impact Blue #0074EE and Shield Red #D50A0A. Saturated blue surfaces, red action emphasis and white data rows replace the muted October 29 treatment. IBM Plex Sans remains the data face; Barlow Condensed gives week headings and record values a stronger sports identity. The mode is Operate: generate and review the weekly card, make personal overrides, and understand results.
 
 ## Navigation and hierarchy
 A single navy top bar contains This Week, History and Settings. There is no permanent sidebar. The current week is the page heading; season/week controls and Load another week sit alongside it. Generate picks is the primary action; Refresh is secondary. Setup status, generation progress, provider errors and save conflicts use explicit text. A missing API key disables generation and points to Settings; manual picks remain available.
@@ -97,7 +97,7 @@ A single navy top bar contains This Week, History and Settings. There is no perm
 ## Weekly card
 A compact white list shows matchup/kickoff, active saved selection/classification/source, confidence, current market line, ATS result and Details/Override controls. Current lines never replace pick lines. Source text distinguishes AI, manual override and imported picks. Best Bet retains its star and blue label. Wins/losses/pushes have green/red/yellow text badges; pending is neutral.
 
-Four flat record summaries show ATS record, Best Bets, model units and unsettled count. They use spacing and horizontal rules rather than repeated KPI cards. Model units remain Recommended Plays only at 1u risk and -110; actual wagers are separate.
+Four flat record summaries show ATS record, Best Bets, model units and unsettled count. Vertical dividers and condensed figures create a scoreboard rhythm; positive/negative units use green/red based on their actual sign, and zero stays neutral. They use spacing and horizontal rules rather than repeated KPI cards. Model units remain Recommended Plays only at 1u risk and -110; actual wagers are separate.
 
 Details reveal rationale, odds provenance, timestamps, and immutable per-game decision history. Override is an inline two-row form, never a new modal. Reasons are required. Use latest AI pick pre-fills the form; saving still creates a new manual version. Locked games expose score entry/corrections, not prediction editing.
 
@@ -108,10 +108,13 @@ Week buttons lead to a searchable table. Active picks, every version, AI snapsho
 Shows key configuration status (never a credential), provider/model, environment-variable guidance, feed coverage and complete data export. Configuration status does not claim the key has been verified. Injury, weather and current team-performance feeds are not connected; model limitations remain visible.
 
 ## Typography, tokens and controls
-Reuse the documented palette above. Intentional supporting tones keep strong contrast: navy navigation text #bdcad8, brand mark #a9c7e7, selection #d8e6f6, field/action ink #3d4c60, muted row labels #52677e, error ink #8d3039 and #a4333d, success ink #236349, and dark push/configuration ink #796019. These are functional tonal variants, not additional accents. Main heading 31px/600, section titles 20px/600, panel titles 15px/600, body/controls 14px with 1.65 body line height, record values 23px/600. Supporting text is 12px; compact row metadata is 11px with functional muted ink. White surfaces use 12px corners, fields 6px and buttons 7px. Borders supply depth; no decorative shadows, gradients or casino motifs. Native controls retain visible labels and a 2px blue keyboard focus outline. Selection, caret and scrollbars use the palette. Reduced motion disables the refresh spinner.
+Reuse the documented palette above. Intentional supporting tones keep strong contrast: navy navigation text #bdcad8, brand mark white on #d50a0a, selection #d8e6f6, field/action ink #3d4c60, muted row labels #52677e, error ink #8d3039 and #a4333d, success ink #236349, and dark push/configuration ink #796019. These are functional tonal variants, not additional accents. Main heading 58px/700 in Barlow Condensed (46px on phone), section titles 20px/600, panel titles 15px/600, body/controls 14px with 1.65 body line height, record values 32px/600 in Barlow Condensed. Supporting text is 12px; compact row metadata is 11px with functional muted ink. White surfaces use 12px corners, fields 6px and buttons 7px. Borders supply depth; no decorative shadows, gradients or casino motifs. Native controls retain visible labels and a 2px blue keyboard focus outline. Selection, caret and scrollbars use the palette. Reduced motion disables the refresh spinner.
 
 ## Responsive behavior
 Desktop content caps at 1352px with 28px gutters. Below 1100px actions stack and list columns tighten; below 850px each game rearranges into a compact grid and metadata moves below its label. At 580px and below, the brand sits over three labeled tabs, gutters become 17px, record summaries use two columns, controls wrap, and the weekly list becomes a two-column card layout. Inline editors use two field columns, with rationale/reason spanning both. History tables scroll inside their own container; the page never scrolls horizontally. Analytics stack to one column. Touch controls target at least 42px.
 
 ## Content and evidence
 Never invent a game, line, injury, statistic or source timestamp. Generated lines come from fetched sportsbook quotes, assigned by the server after the model chooses a team. User overrides are separate immutable records. Every model request is user-triggered and server-side. Original imports retain historical source/entry-time distinctions.
+
+## Color provenance and usage (October 31, 2026)
+Source: [NFL Global Design Playbook — Color Palette](https://designplaybook.nfl.com/color). This is an independent personal analytics interface, with no official NFL shield or affiliation claim. #005FC7 is an accessible darker blue variant for white navigation text; Impact Blue remains for large numerals and confidence meters. Red marks the brand and generation action, while result badges continue using explicit Win/Loss/Push labels with green/red/gold. Classifications use blue Best Bet, green Play, gold Lean, purple Conditional and gray Pass/Avoid. Team abbreviation tiles identify away/home sides in league blues, not purported franchise colors. The weekly banner uses Shield Blue and pale blue text; missing-key disabled actions remain visibly disabled.
