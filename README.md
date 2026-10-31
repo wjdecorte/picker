@@ -173,7 +173,7 @@ For Synology:
 1. Update the Compose file, including the `chatgpt_auth` volume and `CHATGPT_AUTH_DIR` mapping. Recreate the app container with the new image. `OPENAI_API_KEY` is optional for subscription mode.
 2. On the computer running your browser, open an SSH tunnel (SSH must be enabled on the NAS):
    ```sh
-   ssh -N -L 8757:127.0.0.1:8756 YOUR_NAS_USER@10.72.0.5
+   ssh -p 2222 -N -L 8757:127.0.0.1:8756 YOUR_NAS_USER@10.72.0.5
    ```
 3. Open the dashboard on the NAS → Settings → select **ChatGPT subscription** → **Continue with ChatGPT**. Sign in and authorize plan usage in the OpenAI tab. Keep the tunnel open until the callback reports success.
 4. Return to Settings. It updates automatically. Choose a model from the signed-in account's catalog, then generate picks in This Week. The tunnel can now close; the NAS manages rotating token renewal. Phones can use that saved connection without a tunnel.
@@ -187,3 +187,5 @@ Settings supports saved account registrations, explicit account/model selection,
 Subscription requests use the account-specific model catalog, `store:false`, streamed Responses, and completion-event validation. Partial streams, refusals and usage failures never save picks. Existing kickoff locks, sealed history and manual-override preservation still apply. The optional API key retains its existing separately billed integration.
 
 Official references: [Registration and sign-in](https://developers.openai.com/siwc/token-sharing-open-source/sign-in), [Models and inference](https://developers.openai.com/siwc/token-sharing-open-source/models-and-inference), [Account security and renewal](https://developers.openai.com/siwc/token-sharing-open-source/profiles-and-sessions).
+
+This NAS uses SSH port 2222. `CHATGPT_SSH_PORT` controls the port shown in Settings (set it to 22 if using the default SSH port). It does not change NAS SSH settings or publish a new container port.

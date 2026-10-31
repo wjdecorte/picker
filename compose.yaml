@@ -23,6 +23,7 @@ services:
       APP_ORIGIN: ${APP_ORIGIN:-http://localhost:8756}
       ALLOW_LAN_ACCESS: "true"
       CHATGPT_AUTH_DIR: /app/private/chatgpt
+      CHATGPT_SSH_PORT: ${CHATGPT_SSH_PORT:-2222}
       CHATGPT_CALLBACK_PORT: ${CHATGPT_CALLBACK_PORT:-8757}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4.1}

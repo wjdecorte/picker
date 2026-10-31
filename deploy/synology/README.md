@@ -108,9 +108,11 @@ Use the updated Compose file: the app now mounts `chatgpt_auth:/app/private` and
 From the computer running your browser, keep this SSH tunnel open during sign-in:
 
 ```sh
-ssh -N -L 8757:127.0.0.1:8756 YOUR_NAS_USER@10.72.0.5
+ssh -p 2222 -N -L 8757:127.0.0.1:8756 YOUR_NAS_USER@10.72.0.5
 ```
 
 Then open Settings on `http://10.72.0.5:8756`, select ChatGPT subscription and choose Continue with ChatGPT. Complete OpenAI consent, return to Settings and select an available model. Close the tunnel after the success callback. No port 8757 needs to be published on the NAS. OpenAI requires a browser-local `127.0.0.1` callback; SSH forwards it to the existing app port. This step requires SSH access to the NAS. Later model requests and renewals run from the NAS directly, including when using the dashboard from your phone.
 
 Changing the SSH tunnel port also requires changing `CHATGPT_CALLBACK_PORT`. The tunnel's destination is the app's published HTTP port (8756), not PostgreSQL. The credential volume contains sensitive tokens with owner-only permissions and stays out of pick backups/exports. Do not remove it with `down -v`, publish it, or copy it to another installation. Reconnect if it is lost. Subscription failures stop generation; separately billed API mode is available only by explicit selection in Settings.
+
+This NAS uses SSH port 2222. `CHATGPT_SSH_PORT` controls the port shown in Settings (set it to 22 if using the default SSH port). It does not change NAS SSH settings or publish a new container port.
