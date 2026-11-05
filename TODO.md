@@ -39,7 +39,7 @@
 - [x] Add ESPN pregame sportsbook quotes without changing saved pick lines.
 - [ ] Add a licensed multi-book consensus adapter if needed.
 - [ ] Add closing-line snapshots and test CLV with side changes.
-- [ ] Add injury/weather adapters with source and observation timestamps.
+- [x] Add injury/weather adapters with source and fetch timestamps; distinguish missing report/model issue times.
 - [ ] Compare initial/final performance across multiple weeks and seasons.
 - [ ] Expand automated browser coverage for mobile forms, keyboard use and accessible tables.
 - [ ] Self-host fonts for fully offline/local rendering.
@@ -49,10 +49,15 @@
 - [x] In-app weekly schedule loading, OpenAI generation, preserved manual overrides and three-view workspace.
 - [x] Deduplicated model requests, per-week generation lock, second kickoff check, immutable model provenance and independent grading.
 - [ ] Add the user's OpenAI key to the NAS environment and update Compose mappings; pull/recreate the app, then verify a live generation.
-- [ ] Integrate verified injury, weather and team-performance evidence before treating model confidence as richer than a line-only assessment.
+- [ ] Add verified team-performance evidence; retain injury/forecast uncertainty and uncalibrated confidence labeling.
 
 ## ChatGPT subscription connection
 - [x] Official ChatGPT OAuth/PKCE with signed ID-token verification and NAS loopback tunnel instructions.
 - [x] Protected persistent credentials, saved accounts/models, rotating refresh serialization and revocation.
 - [x] Streamed subscription generation, usage error handling and explicit billing selection without automatic API fallback.
 - [ ] Deploy updated Compose/image, complete the real Plus authorization through the SSH tunnel, and verify the first live card (requires Jason's OpenAI sign-in/consent).
+
+- [x] Add attributed nflverse daily injury evidence to new AI versions, with immutable provenance and stale/unavailable handling.
+- [ ] Deploy injury/weather integrations to Synology and verify a pre-kickoff card using the selected model connection.
+- [x] Add Open-Meteo venue-area weather forecasts with immutable evidence.
+- [ ] Verify late injury changes and game-day roof status manually.

@@ -1,7 +1,7 @@
 import {type HistoryState,type EventGame,type ProviderEvent,type PickVersion,type Card,eventDate,recalculate} from './history';
 import {applyProviderEvents} from './score-service';
 export const pickClasses=['Best Bet','Play','Lean','Conditional','Pass','Avoid'] as const;
-export type ModelInput={gameId:string;away:string;home:string;kickoff:string;homeSpread:number;awaySpread:number;bookmaker:string;checkedAt:string};
+export type ModelInput={gameId:string;away:string;home:string;kickoff:string;homeSpread:number;awaySpread:number;bookmaker:string;checkedAt:string;weather?:import('./weather').WeatherEvidence;injuries?:import('./injuries').InjuryEvidence};
 export type ModelPick={gameId:string;team:string;confidence:number;classification:string;rationale:string};
 export function validateWeek(season:unknown,week:unknown){if(!Number.isInteger(season)||Number(season)<2000||Number(season)>2100||!Number.isInteger(week)||Number(week)<1||Number(week)>18)throw Error('Choose a valid season and regular-season week (1–18).');}
 export function editable(g:EventGame,now=Date.now()){return !!g.kickoff&&Number.isFinite(Date.parse(g.kickoff))&&Date.parse(g.kickoff)>now&&!['Complete','In progress'].includes(g.status)&&g.providerState!=='in'&&g.providerState!=='post';}
@@ -36,7 +36,7 @@ export function saveModelPicks(s:HistoryState,inputs:ModelInput[],rows:ModelPick
  if(!eligible.length)throw Error('All eligible games have started. No predictions were saved.');
  const card=newCard(s,season,week,now,'AI picks · '+eventDate(now),'llm');let retained=0;
  for(const r of eligible){const g=s.eventGames.find(g=>g.id===r.gameId)!,quote=inputs.find(i=>i.gameId===r.gameId)!;const spread=r.team===g.home?quote.homeSpread:quote.awaySpread;
-  const p:PickVersion={id:crypto.randomUUID(),gameId:g.id,cardId:card.id,team:r.team,spread,confidence:r.confidence,classification:r.classification,analysisDate:eventDate(now),analysisTimestamp:now,rationale:r.rationale,revisionReason:'Generated inside the app from fetched pregame lines',notes:'AI assessment based on schedule and sportsbook lines only; no verified injury or weather feed. Confidence is a model assessment, not a calibrated win probability.',recordedAt:now,isLocked:true,conditionalActive:false,origin:'llm',model:run.model,runId:run.id,responseId:run.responseId,oddsSource:'ESPN · '+quote.bookmaker,oddsTimestamp:quote.checkedAt,kickoffTimestamp:quote.kickoff};
+  const p:PickVersion={id:crypto.randomUUID(),gameId:g.id,cardId:card.id,team:r.team,spread,confidence:r.confidence,classification:r.classification,analysisDate:eventDate(now),analysisTimestamp:now,rationale:r.rationale,revisionReason:'Generated inside the app from fetched pregame lines',weatherEvidence:quote.weather,injuryEvidence:quote.injuries,notes:'AI assessment based on supplied schedule, lines and any saved injury/weather evidence. Confidence is a model assessment, not a calibrated win probability.',recordedAt:now,isLocked:true,conditionalActive:false,origin:'llm',model:run.model,runId:run.id,responseId:run.responseId,oddsSource:'ESPN · '+quote.bookmaker,oddsTimestamp:quote.checkedAt,kickoffTimestamp:quote.kickoff};
   s.pickVersions.push(p);const prior=s.pickVersions.find(p=>p.id===g.officialVersionId);if(prior?.origin==='manual')retained++;else g.officialVersionId=p.id;
  }
  recalculate(s,now);return {cardId:card.id,saved:eligible.length,skipped:rows.length-eligible.length,retainedOverrides:retained};

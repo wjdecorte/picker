@@ -1,5 +1,7 @@
 export const runtime='nodejs';
-export const maxDuration=120;
+export const maxDuration=180;
+import {loadWeather} from '../../../weather';
+import {loadInjuries,gameInjuries} from '../../../injuries';
 import {getPool} from '../../../../db/client';
 import {loadState,saveState,responseData} from '../../../repository';
 import {retrieveWeek} from '../../../score-service';
@@ -16,6 +18,7 @@ export async function POST(req:Request){
   if(old){if(old.season!==d.season||old.week!==d.week)throw Error('This request ID belongs to another week.');const saved=await loadState();if(old.status==='completed'||saved.pickVersions.some(p=>p.runId===d.requestId))return Response.json({...responseData(saved),generation:old.payload});return Response.json({error:'This request was already attempted. Refresh before starting a new generation.'},{status:409});}
   let s=await loadState();if(d.version!==s.version)return Response.json({error:'The dashboard changed. Refresh before generating.'},{status:409});
   const events=await retrieveWeek(d.season,d.week),start=new Date().toISOString();syncWeek(s,events,d.season,d.week,start);const inputs=modelInputs(s,d.season,d.week,start);if(!inputs.length)throw Error('No unstarted games have verified pregame lines. Refresh lines or choose another week.');
+  await Promise.all([loadInjuries(d.season,d.week).then(injuries=>{for(const input of inputs)input.injuries=gameInjuries(injuries,input.away,input.home);}),...inputs.map(async input=>{const event=events.find(e=>'espn:'+e.externalId===input.gameId||s.eventGames.find(g=>g.id===input.gameId)?.externalId===e.externalId);input.weather=await loadWeather(event?.venue,input.kickoff);})]);
   await client.query("INSERT INTO model_runs(id,season,week,status,model,payload) VALUES($1,$2,$3,'running',$4,$5)",[d.requestId,d.season,d.week,(await generationConfig()).model,JSON.stringify({games:inputs.length})]);inserted=true;
   const output=await generatePicks(inputs),rows=validateModelPicks(output.value,inputs);
   // Re-fetch after generation: a slow model must never create a pick after kickoff.
