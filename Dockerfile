@@ -6,7 +6,8 @@ RUN npm ci
 
 FROM dependencies AS builder
 COPY . .
-ENV NEXT_TELEMETRY_DISABLED=1
+ARG GIT_COMMIT=""
+ENV NEXT_TELEMETRY_DISABLED=1 GIT_COMMIT=$GIT_COMMIT
 RUN npm run build
 
 FROM node:24-bookworm-slim AS runner

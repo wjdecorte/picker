@@ -54,6 +54,8 @@ Import refuses to overwrite a nonempty dashboard. It verifies every original fie
 
 ## Published image and Synology
 
+The running version and build commit appear in the footer (for example `v0.4.0 · 8476cdd`), in Settings → App version, and in `/api/health`. They are fixed at build time from `package.json` and the `GIT_COMMIT` build argument the workflow passes (local builds read `git rev-parse HEAD`).
+
 GitHub Actions builds `linux/amd64` and `linux/arm64` images and publishes `ghcr.io/wjdecorte/picker:latest` after checks pass on `main`. Commit and version tags support pinned deployments. See [Synology setup, registry login, and data transfer](deploy/synology/README.md). The workflow uses GitHub’s built-in package token; no new repository secret is required.
 
 ## Local development
