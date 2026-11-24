@@ -28,6 +28,7 @@ services:
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4.1}
       RESULTS_SERVICE_KEY: ${RESULTS_SERVICE_KEY:-}
+      AUTO_PICKS: ${AUTO_PICKS:-true}
     volumes:
       - chatgpt_auth:/app/private
     ports:

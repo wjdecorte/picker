@@ -15,9 +15,10 @@
 
 - [ ] Review migrated records and the Week 7 Initial/Final entry workflow.
 - [ ] Refresh any outstanding game results; review provider conflicts before accepting corrections.
-- [ ] Enter Week 7 handicapping picks manually; do not auto-generate selections.
+- [x] ~~Enter Week 7 handicapping picks manually; do not auto-generate selections.~~ Superseded: AI picks are generated in the app and on a schedule (v0.3.0).
+- [x] Schedule AI pick updates before each week's first game and before the first Sunday game.
 - [ ] Add a score/schedule worker with retries, rate limits, final-only updates and job history.
-- [ ] Generalize schedule creation beyond the bundled Week 7 workspace.
+- [x] Generalize schedule creation beyond the bundled Week 7 workspace (full-season load).
 - [ ] Add a first-run state that can start empty instead of using the bundled historical seed.
 - [ ] Add a PostgreSQL export/restore command and an automated restore drill.
 - [ ] Set up encrypted/off-device backups and a retention policy.
@@ -49,7 +50,9 @@
 - [x] In-app weekly schedule loading, OpenAI generation, preserved manual overrides and three-view workspace.
 - [x] Deduplicated model requests, per-week generation lock, second kickoff check, immutable model provenance and independent grading.
 - [ ] Add the user's OpenAI key to the NAS environment and update Compose mappings; pull/recreate the app, then verify a live generation.
-- [ ] Add verified team-performance evidence; retain injury/forecast uncertainty and uncalibrated confidence labeling.
+- [x] Add season-to-date nflverse team results (records, ATS, point differential, last four, opponent strength, rest) as immutable evidence on new AI picks.
+- [ ] Consider efficiency evidence (EPA per play, success rate) from nflverse team stats.
+- [x] Load the full regular-season schedule automatically and open on the current week.
 
 ## ChatGPT subscription connection
 - [x] Official ChatGPT OAuth/PKCE with signed ID-token verification and NAS loopback tunnel instructions.

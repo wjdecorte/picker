@@ -1,7 +1,7 @@
 import {type HistoryState,type EventGame,type ProviderEvent,type PickVersion,type Card,eventDate,recalculate} from './history';
 import {applyProviderEvents} from './score-service';
 export const pickClasses=['Best Bet','Play','Lean','Conditional','Pass','Avoid'] as const;
-export type ModelInput={gameId:string;away:string;home:string;kickoff:string;homeSpread:number;awaySpread:number;bookmaker:string;checkedAt:string;weather?:import('./weather').WeatherEvidence;injuries?:import('./injuries').InjuryEvidence};
+export type ModelInput={gameId:string;away:string;home:string;kickoff:string;homeSpread:number;awaySpread:number;bookmaker:string;checkedAt:string;weather?:import('./weather').WeatherEvidence;injuries?:import('./injuries').InjuryEvidence;teamForm?:import('./team-form').TeamFormEvidence};
 export type ModelPick={gameId:string;team:string;confidence:number;classification:string;rationale:string};
 export function validateWeek(season:unknown,week:unknown){if(!Number.isInteger(season)||Number(season)<2000||Number(season)>2100||!Number.isInteger(week)||Number(week)<1||Number(week)>18)throw Error('Choose a valid season and regular-season week (1–18).');}
 export function editable(g:EventGame,now=Date.now()){return !!g.kickoff&&Number.isFinite(Date.parse(g.kickoff))&&Date.parse(g.kickoff)>now&&!['Complete','In progress'].includes(g.status)&&g.providerState!=='in'&&g.providerState!=='post';}
@@ -10,13 +10,22 @@ export function syncWeek(s:HistoryState,events:ProviderEvent[],season:number,wee
  for(const e of events){
   if(e.season!==season||e.week!==week)throw Error('Schedule does not match the requested week.');
   const existing=s.eventGames.find(g=>g.externalId===e.externalId)||s.eventGames.find(g=>g.season===season&&g.week===week&&g.away===e.away&&g.home===e.home&&g.date===eventDate(e.kickoff));
-  if(existing){if(existing.season!==season||existing.week!==week||existing.away!==e.away||existing.home!==e.home)throw Error('Provider game identity changed. Existing picks were preserved.');if(existing.kickoff&&Date.parse(existing.kickoff)!==Date.parse(e.kickoff)&&s.pickVersions.some(p=>p.gameId===existing.id))throw Error('A saved game has a changed kickoff. Review the schedule before generating.');}
+  if(existing){if(existing.season!==season||existing.week!==week||existing.away!==e.away||existing.home!==e.home)throw Error('Provider game identity changed. Existing picks were preserved.');if(existing.kickoff&&Date.parse(existing.kickoff)!==Date.parse(e.kickoff)){if(s.pickVersions.some(p=>p.gameId===existing.id))throw Error('A saved game has a changed kickoff. Review the schedule before generating.');
+   // A game with no picks can follow a rescheduled or flexed kickoff.
+   existing.kickoff=e.kickoff;existing.date=eventDate(e.kickoff);}}
   else s.eventGames.push({id:'espn:'+e.externalId,season,week,date:eventDate(e.kickoff),away:e.away,home:e.home,kickoff:e.kickoff,externalId:e.externalId,status:'Pending',awayScore:null,homeScore:null,completedAt:null,officialVersionId:null,context:{currentSpread:null,closingSpread:null}});
  }
  const applied=applyProviderEvents(s,events,now);if(applied.conflicts.length)throw Error(applied.conflicts.join(' '));
  s.meta.weeks=[...new Set([...(s.meta.weeks||[]),week])].sort((a,b)=>a-b);
  if(!(s.meta.cards||[]).some((c:any)=>c.season===season&&c.week===week))s.meta.cards=[...(s.meta.cards||[]),{season,week}];
  return applied;
+}
+// Loads every regular-season week. Each week is applied to a copy, so one failing week
+// never leaves a partial week behind; successful weeks are kept.
+export async function syncSeason(s:HistoryState,season:number,retrieve:(season:number,week:number)=>Promise<ProviderEvent[]>,now:string){
+ validateWeek(season,1);let state=s;const loaded:number[]=[],failed:{week:number;error:string}[]=[];
+ for(let week=1;week<=18;week++){try{const events=await retrieve(season,week);const next=structuredClone(state);syncWeek(next,events,season,week,now);state=next;loaded.push(week);}catch(e:any){failed.push({week,error:e?.message==='fetch failed'?'Schedule provider unavailable.':e?.message||'Schedule could not be loaded.'});}}
+ return {state,loaded,failed};
 }
 export function modelInputs(s:HistoryState,season:number,week:number,now:string):ModelInput[]{return s.eventGames.filter(g=>g.season===season&&g.week===week&&editable(g,Date.parse(now))&&g.market&&Date.parse(now)-Date.parse(g.market.checkedAt)<=600000).map(g=>({gameId:g.id,away:g.away,home:g.home,kickoff:g.kickoff!,homeSpread:g.market!.homeSpread,awaySpread:g.market!.awaySpread,bookmaker:g.market!.bookmaker,checkedAt:g.market!.checkedAt}));}
 export function validateModelPicks(value:unknown,inputs:ModelInput[]):ModelPick[]{
@@ -36,7 +45,7 @@ export function saveModelPicks(s:HistoryState,inputs:ModelInput[],rows:ModelPick
  if(!eligible.length)throw Error('All eligible games have started. No predictions were saved.');
  const card=newCard(s,season,week,now,'AI picks · '+eventDate(now),'llm');let retained=0;
  for(const r of eligible){const g=s.eventGames.find(g=>g.id===r.gameId)!,quote=inputs.find(i=>i.gameId===r.gameId)!;const spread=r.team===g.home?quote.homeSpread:quote.awaySpread;
-  const p:PickVersion={id:crypto.randomUUID(),gameId:g.id,cardId:card.id,team:r.team,spread,confidence:r.confidence,classification:r.classification,analysisDate:eventDate(now),analysisTimestamp:now,rationale:r.rationale,revisionReason:'Generated inside the app from fetched pregame lines',weatherEvidence:quote.weather,injuryEvidence:quote.injuries,notes:'AI assessment based on supplied schedule, lines and any saved injury/weather evidence. Confidence is a model assessment, not a calibrated win probability.',recordedAt:now,isLocked:true,conditionalActive:false,origin:'llm',model:run.model,runId:run.id,responseId:run.responseId,oddsSource:'ESPN · '+quote.bookmaker,oddsTimestamp:quote.checkedAt,kickoffTimestamp:quote.kickoff};
+  const p:PickVersion={id:crypto.randomUUID(),gameId:g.id,cardId:card.id,team:r.team,spread,confidence:r.confidence,classification:r.classification,analysisDate:eventDate(now),analysisTimestamp:now,rationale:r.rationale,revisionReason:'Generated inside the app from fetched pregame lines',weatherEvidence:quote.weather,injuryEvidence:quote.injuries,teamFormEvidence:quote.teamForm,notes:'AI assessment based on supplied schedule, lines and any saved injury, weather and team-results evidence. Confidence is a model assessment, not a calibrated win probability.',recordedAt:now,isLocked:true,conditionalActive:false,origin:'llm',model:run.model,runId:run.id,responseId:run.responseId,oddsSource:'ESPN · '+quote.bookmaker,oddsTimestamp:quote.checkedAt,kickoffTimestamp:quote.kickoff};
   s.pickVersions.push(p);const prior=s.pickVersions.find(p=>p.id===g.officialVersionId);if(prior?.origin==='manual')retained++;else g.officialVersionId=p.id;
  }
  recalculate(s,now);return {cardId:card.id,saved:eligible.length,skipped:rows.length-eligible.length,retainedOverrides:retained};
